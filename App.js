@@ -13,7 +13,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions ={{
-          headeShown: false
+          // here disallow header view "title name"
+          headerShown: false
         }}
         initialRouteName={"Home"}
       >
