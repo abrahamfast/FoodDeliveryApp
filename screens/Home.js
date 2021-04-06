@@ -44,7 +44,7 @@ const Home = () => {
                 style={{
                     padding: SIZES.padding,
                     paddingBottom: SIZES.padding * 2,
-                    backgroundColor: COLORS.primary,
+                    backgroundColor: (selectedCategory?.id == item.id) ? COLORS.primary : COLORS.white,
                     borderRadius: SIZES.radius,
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -69,7 +69,9 @@ const Home = () => {
                     }} />
                 </View>
                 <Text style={{
-                    marginTop: SIZES.padding, color: COLORS.white, ...FONTS.body5
+                    marginTop: SIZES.padding, 
+                    color: (selectedCategory?.id == item.id) ? COLORS.white : COLORS.black,
+                    ...FONTS.body5
                 }}>{item.name}</Text>
             </TouchableOpacity>
             )
@@ -94,10 +96,46 @@ const Home = () => {
         )
     }
 
+    const renderRestaurant = () => {
+
+        const renderItem = ({item}) => {
+            return (
+            <TouchableOpacity 
+                style={{
+                    marginBottom: SIZES.padding *2,
+                }}
+                // onPress={() => console.log('here')}
+            >
+                <View>
+                    <Image source={item.photo} resizeMode="cover" style={{
+                        width: "100%",
+                        height: 200,
+                        borderRadius: SIZES.radius
+                    }} />
+                </View>
+
+            </TouchableOpacity>
+            )
+        }
+
+        return (
+            <FlatList
+                data={restaurants}
+                keyExtractor={item => '${item.id}'}
+                renderItem={renderItem}
+                contentContainerStyle={{
+                    paddingHorizontal: SIZES.padding * 2,
+                    paddingBottom: 30
+                }}
+            />
+        )
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <HomeHeader />
             {renderMainCategories()}
+            {renderRestaurant()}
         </SafeAreaView>
     )
 }
